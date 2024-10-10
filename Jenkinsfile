@@ -1,17 +1,13 @@
 pipeline {
-    agent any
-    stages {
-        stage('Install Node.js') {
-            steps {
-                sh '''
-                curl -sL https://deb.nodesource.com/setup_16.x | bash -
-                sudo apt-get install -y nodejs
-                node -v
-                npm -v
-                '''
-            }
+    agent {
+        docker {
+            image 'node:16' // Node.js version you need
+            args '-u root'  // Run as root user
         }
-        stage('Build') { 
+    }
+
+    stages {
+        stage('Build') {
             steps {
                 sh 'npm install'
             }
