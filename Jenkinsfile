@@ -1,16 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:16' // Node.js version you need
-            args '-u root'  // Run as root user
-        }
+  agent any
+  tools {nodejs "node"}
+  stages {
+    stage('Git') {
+      steps {
+        git 'https://github.com/AjiMk/sample-node-js-project-for-jenkins'
+      }
     }
-
-    stages {
-        stage('Build') {
-            steps {
-                sh 'npm install'
-            }
-        }
+     
+    stage('Build') {
+      steps {
+        sh 'npm install'
+      }
+    }      
+    stage('Test') {
+      steps {
+        sh 'node test'
+      }
     }
+  }
 }
