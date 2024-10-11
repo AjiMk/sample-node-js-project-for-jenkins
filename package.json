@@ -2,12 +2,11 @@
   "name": "sample-node-js-project-for-jenkins",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.js",
-  "type": "module",
+  "main": "dist/server.js",
   "scripts": {
-    "build": "tsc",
+    "build": "rm -f dist/* && tsc",
     "lint": "eslint .",
-    "start": "node src/index.js"
+    "start": "node dist/server.js"
   },
   "keywords": [],
   "author": "",
