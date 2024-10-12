@@ -12,15 +12,19 @@ pipeline {
         sh 'npm run lint'
       }
     }
+    stage('SonarQube Analysis') {
+      steps {
+        script {
+          def scannerHome = tool 'SonarScanner';
+          withSonarQubeEnv('YourSonarQubeInstance') {
+            sh "${scannerHome}/bin/sonar-scanner"
+          }
+        }
+      }
+    }
     stage('Build') {
       steps {
         sh 'npm run build'
-      }
-    }
-    stage('SonarQube Analysis') {
-      def scannerHome = tool 'SonarScanner';
-      withSonarQubeEnv() {
-        sh "${scannerHome}/bin/sonar-scanner"
       }
     }
   }
